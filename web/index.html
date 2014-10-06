@@ -1,0 +1,88 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+        <script language="javascript" type="text/javascript">
+            var wsUri = "ws://localhost:7001/WS_Echo/echo";
+            var websocket = new WebSocket(wsUri);
+            websocket.onopen = function(evt) { onOpen(evt) };
+            websocket.onmessage = function(evt) { onMessage(evt) };
+            websocket.onerror = function(evt) { onError(evt) };
+
+            function init() {
+                output = document.getElementById("output");
+                connectionList = document.getElementById("connectionList");
+            }
+            function onOpen(evt) {
+                writeToScreen("CONNECTED ");
+            }
+            function disconnect(){
+                console.log("Disconnecting...");
+                websocket.close(1000);
+            }
+
+            function onMessage(evt) {
+                var msg = evt.data;
+                console.log(msg);
+                
+                var isMatch = msg.substr(0, 4) === "Conn";
+                console.log(isMatch);
+                if(isMatch === true){
+                    //listConnection(msg);
+                }else{
+                    writeToScreen("RECEIVED: " + evt.data);
+                }  
+            }
+            function onError(evt) {
+                writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+            }
+
+            function writeToScreen(message) {
+                var pre = document.createElement("p");
+                pre.style.wordWrap = "break-word";
+                pre.innerHTML = message;
+                output.appendChild(pre);
+            }
+            function say_hello() {
+                //websocket.send("{\"type\":\"echo\",\"name\":\"" + nameField.value + " \"}");
+                websocket.send(nameField.value);
+                writeToScreen("SENT: " + nameField.value);
+            }
+
+            window.addEventListener("load", init, false);
+        </script>
+    </head>
+    <body>
+        <!-- Home -->
+        <div data-role="page" data-fullscreen="true" id="home">
+            <div data-theme="a" data-role="header">
+                <div id="logo_image">
+                    <h4>HTML5 WebSocket Sample App</h4>
+                </div>
+            </div>
+            <div data-theme="a" data-role="header">
+                <!-- INSERT HEADER MESSAGE HERE -->
+            </div>
+            <div data-role="content" id="content">
+                  <form action=""> 
+                    <input id="nameField" name="name" value="Your Name Here" type="text">
+                    <input onclick="say_hello();" value="Say Hello" type="button"><br>
+                  </form>
+            </div>
+            <div id="output"></div>
+        </div>
+    </body>
+</html>
