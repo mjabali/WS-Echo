@@ -27,7 +27,7 @@ and open the template in the editor.
                 connectionList = document.getElementById("connectionList");
             }
             function onOpen(evt) {
-                writeToScreen("CONNECTED ");
+                writeToScreen("Welcome to the HTML5 WebSocket Sample App ");
             }
             function disconnect(){
                 console.log("Disconnecting...");
@@ -78,8 +78,8 @@ and open the template in the editor.
             </div>
             <div data-role="content" id="content">
                   <form action=""> 
-                    <input id="nameField" name="name" value="Your Name Here" type="text">
-                    <input onclick="say_hello();" value="Say Hello" type="button"><br>
+                    <input id="nameField" name="name" placeholder="Your Name Here" type="text">
+                    <input onclick="say_hello();" value="Send Message" type="button"><br>
                   </form>
             </div>
             <div id="output"></div>

@@ -40,7 +40,7 @@ public class Echo{
             sessions = everyone.toArray(sessions);
             for (int i=0; i<sessions.length; i++){
                 synchronized (sessions[i].getBasicRemote()){
-                    sessions[i].getBasicRemote().sendText("Hello... " + message);
+                    sessions[i].getBasicRemote().sendText(message);
                 }      
             }
         } catch (Exception ex) {
