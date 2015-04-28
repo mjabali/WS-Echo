@@ -33,23 +33,14 @@ and open the template in the editor.
                 console.log("Disconnecting...");
                 websocket.close(1000);
             }
-
             function onMessage(evt) {
                 var msg = evt.data;
-                console.log(msg);
-                
-                var isMatch = msg.substr(0, 4) === "Conn";
-                console.log(isMatch);
-                if(isMatch === true){
-                    //listConnection(msg);
-                }else{
-                    writeToScreen("RECEIVED: " + evt.data);
-                }  
+                console.log("Message Received: " + msg);
+                writeToScreen("RECEIVED: " + evt.data);  
             }
             function onError(evt) {
                 writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
             }
-
             function writeToScreen(message) {
                 var pre = document.createElement("p");
                 pre.style.wordWrap = "break-word";
@@ -57,16 +48,13 @@ and open the template in the editor.
                 output.appendChild(pre);
             }
             function say_hello() {
-                //websocket.send("{\"type\":\"echo\",\"name\":\"" + nameField.value + " \"}");
                 websocket.send(nameField.value);
                 writeToScreen("SENT: " + nameField.value);
             }
-
             window.addEventListener("load", init, false);
         </script>
     </head>
     <body>
-        <!-- Home -->
         <div data-role="page" data-fullscreen="true" id="home">
             <div data-theme="a" data-role="header">
                 <div id="logo_image">
@@ -74,7 +62,7 @@ and open the template in the editor.
                 </div>
             </div>
             <div data-theme="a" data-role="header">
-                <!-- INSERT HEADER MESSAGE HERE -->
+                <!-- Nothing in the header -->
             </div>
             <div data-role="content" id="content">
                   <form action=""> 
