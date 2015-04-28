@@ -47,7 +47,6 @@ public class Echo{
             Logger.getLogger(Echo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     @OnClose
     public void bye(Session remote, CloseReason closeReason) 
     {
